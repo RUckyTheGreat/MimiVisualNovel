@@ -1,0 +1,147 @@
+[
+  {
+    "type": "scene",
+    "bg": "5ed1185ee989bf2ac31e6e4a330d2966.jpg",
+    "music": "bgm_calm.mp3",
+    "transition": "fade"
+  },
+  {
+    "type": "narration",
+    "text": "Pagi yang tenang menyelimuti hutan kecil di pinggir desa.",
+    "transition": "fade"
+  },
+  {
+    "type": "dialogue",
+    "character": "Mimi",
+    "image": "mimi_happy.jpg",
+    "position": "left",
+    "movement": "bounce",
+    "effect": "fade-in",
+    "text": "Indah sekali hari ini... Rasanya aku ingin berjalan lebih jauh ke dalam hutan.",
+    "transition": "zoom"
+  },
+  {
+    "type": "choice",
+    "transition": "slide",
+    "choices": [
+      { "text": "Pergi ke sekolah", "result": "neutral" },
+      { "text": "Pergi ke sekolah", "result": "neutral" },
+      { "text": "Pergi ke hutan", "result": "neutral", "jumpTo": 9 }
+    ]
+  },
+  {
+    "type": "dialogue",
+    "character": "Kai",
+    "image": "kai_normal.jpg",
+    "position": "right",
+    "movement": "slide-right",
+    "effect": "flash-white",
+    "text": "Kita ke sekolah saja, ya! Nanti kalau terlambat, Pak Guru bisa marah.",
+    "transition": "flash"
+  },
+  {
+    "type": "choice",
+    "choices": [
+      { "text": "Tetap jalan cepat", "result": "neutral" },
+      { "text": "Berhenti dan istirahat", "result": "lose" }
+    ]
+  },
+  {
+    "type": "narration",
+    "text": "Kai dan Mimi terus berjalan melewati jalan setapak yang sunyi.",
+    "transition": "fade"
+  },
+  {
+    "type": "dialogue",
+    "character": "Mimi",
+    "image": "mimi_happy.jpg",
+    "position": "left",
+    "movement": "shake",
+    "effect": "blur-in",
+    "text": "Kai, kamu dengar itu? Seperti suara air mengalir di dekat sini!",
+    "transition": "slide"
+  },
+  {
+    "type": "choice",
+    "choices": [
+      { "text": "Pergi lihat sumber suara", "result": "neutral" },
+      { "text": "Abaikan dan lanjut jalan", "result": "neutral" }
+    ]
+  },
+  {
+    "type": "narration",
+    "text": "Mereka pun menemukan sungai kecil dengan air jernih mengalir perlahan. Burung-burung berkicau di atasnya.",
+    "transition": "zoom"
+  },
+  {
+    "type": "question",
+    "hint": "Apa warna langit di pagi hari?",
+    "correctAnswer": "biru",
+    "consequenceIfCorrect": "neutral",
+    "consequenceIfWrong": "lose",
+    "transition": "black"
+  },
+  {
+    "type": "dialogue",
+    "character": "Kai",
+    "image": "kai_normal.jpg",
+    "position": "right",
+    "movement": "bounce",
+    "effect": "glow",
+    "text": "Haha, benar! Langitnya biru cerah sekali hari ini.",
+    "transition": "fade"
+  },
+  {
+    "type": "question",
+    "hint": "Siapa nama teman Mimi?",
+    "correctAnswer": "Kai",
+    "consequenceIfCorrect": "neutral",
+    "consequenceIfWrong": "lose",
+    "transition": "fade"
+  },
+  {
+    "type": "dialogue",
+    "character": "Mimi",
+    "image": "mimi_happy.jpg",
+    "position": "center",
+    "movement": "zoom-in",
+    "text": "Betul! Kamu hebat, Kai~",
+    "transition": "white"
+  },
+  {
+    "type": "choice",
+    "choices": [
+      { "text": "Tersenyum balik pada Mimi", "result": "win" },
+      { "text": "Diam saja", "result": "neutral" }
+    ],
+    "transition": "slide"
+  },
+  {
+    "type": "dialogue",
+    "character": "Kai",
+    "image": "kai_normal.jpg",
+    "position": "right",
+    "movement": "slide-left",
+    "text": "Haha, aku senang bisa bersamamu hari ini, Mimi.",
+    "transition": "fade"
+  },
+  {
+    "type": "narration",
+    "text": "Langit mulai memerah, menandakan hari akan berakhir. Mereka menatap langit sore dengan senyum puas.",
+    "transition": "fade"
+  },
+  {
+    "type": "dialogue",
+    "character": "Mimi",
+    "image": "mimi_happy.jpg",
+    "position": "center",
+    "movement": "fade-in",
+    "text": "Yay, kita sampai! Hari ini benar-benar indah!",
+    "transition": "zoom"
+  },
+  {
+    "type": "narration",
+    "text": "🌸 Ending: Hari yang Tenang 🌸",
+    "transition": "fade"
+  }
+]
