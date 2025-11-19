@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 
-import { Chapter1Page, Chapter2Page, ChapterSpecial, UIShowcasePage } from './pages/vn'; 
+import { Chapter1Page } from './pages/vn'; 
 
 import './styles/global.css';
 
@@ -13,10 +13,6 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/vn/chapter1" element={<Chapter1Page />} />
-          <Route path="/vn/chapter2" element={<Chapter2Page />} />
-          <Route path="/vn/special" element={<ChapterSpecial />} />
-          <Route path="/vn/showcase" element={<UIShowcasePage />} />
-          
           <Route path="*" element={<h1>404 | Halaman Tidak Ditemukan</h1>} />
         </Routes>
       </div>

@@ -56,7 +56,6 @@ function Background({ image, overlay = 0 }) {
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
                     <div className="absolute inset-0 flex items-center justify-center">
                         <div className="text-white text-center">
-                            <div className="text-8xl mb-4">🎨</div>
                             <div className="text-2xl font-bold mb-2">Add Your Background Image!</div>
                             <div className="text-lg opacity-80">Place images in <code className="bg-black/50 px-2 py-1 rounded">public/assets/bg/</code></div>
                         </div>

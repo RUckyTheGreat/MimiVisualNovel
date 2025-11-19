@@ -1,147 +1,796 @@
+
+
 [
   {
-    "type": "scene",
-    "bg": "5ed1185ee989bf2ac31e6e4a330d2966.jpg",
-    "music": "bgm_calm.mp3",
-    "transition": "fade"
-  },
-  {
-    "type": "narration",
-    "text": "Pagi yang tenang menyelimuti hutan kecil di pinggir desa.",
-    "transition": "fade"
-  },
-  {
-    "type": "dialogue",
-    "character": "Mimi",
-    "image": "mimi_happy.jpg",
-    "position": "left",
-    "movement": "bounce",
-    "effect": "fade-in",
-    "text": "Indah sekali hari ini... Rasanya aku ingin berjalan lebih jauh ke dalam hutan.",
-    "transition": "zoom"
-  },
-  {
-    "type": "choice",
-    "transition": "slide",
-    "choices": [
-      { "text": "Pergi ke sekolah", "result": "neutral" },
-      { "text": "Pergi ke sekolah", "result": "neutral" },
-      { "text": "Pergi ke hutan", "result": "neutral", "jumpTo": 9 }
+    "id": "guide-schema",
+    "type": "guide",
+    "_comment": [
+      "Gunakan stage.reset=true untuk membersihkan semua karakter/objek sebelum menggambar adegan baru.",
+      "stage.background bisa string cepat atau object { image, overlay, transition:{type, duration} } untuk kontrol fade/slide.",
+      "stage.characters adalah array snapshot. Properti populer: id (wajib), name, image (public/assets/sprites), position (left|center|right|custom), movement, scale, layer, isSpeaking, assetType.",
+      "stage.objects bekerja sama seperti characters untuk benda atau foto narator. Dapat mengatur assetType:'bg' untuk pakai folder lain.",
+      "Gunakan speakerId untuk menunjuk karakter yang sedang bicara. Jika tidak ada, engine pakai field name/speakerName.",
+      "transition di level line memaksa animasi (string singkat atau object). Stage background/character change juga dapat memicu fade otomatis.",
+      "choices[].jumpTo melompat ke id line lain. choices[].result menerima 'lose' (munculkan LoseOverlay) atau kata lain (lanjut biasa).",
+      "question line memakai correctAnswer/hint (lihat komponen AnswerBox) namun tidak digunakan di contoh ini.",
+      "Gunakan objek _comment tambahan jika ingin mendokumentasikan custom helper di JSON tanpa mengganggu engine."
     ]
   },
   {
-    "type": "dialogue",
-    "character": "Kai",
-    "image": "kai_normal.jpg",
-    "position": "right",
-    "movement": "slide-right",
-    "effect": "flash-white",
-    "text": "Kita ke sekolah saja, ya! Nanti kalau terlambat, Pak Guru bisa marah.",
-    "transition": "flash"
-  },
-  {
-    "type": "choice",
-    "choices": [
-      { "text": "Tetap jalan cepat", "result": "neutral" },
-      { "text": "Berhenti dan istirahat", "result": "lose" }
-    ]
-  },
-  {
+    "id": "scene-prolog-room",
     "type": "narration",
-    "text": "Kai dan Mimi terus berjalan melewati jalan setapak yang sunyi.",
-    "transition": "fade"
+    "text": "CHAPTER 1 – My Prolog (Kamar).",
+    "stage": {
+      "reset": true,
+      "background": {
+        "image": "5ed1185ee989bf2ac31e6e4a330d2966.jpg",
+        "overlay": 28,
+        "transition": {
+          "type": "fade",
+          "duration": 900
+        }
+      }
+    }
   },
-  {
+{ 
+      "id": "dialogue-protag-01",
     "type": "dialogue",
-    "character": "Mimi",
-    "image": "mimi_happy.jpg",
-    "position": "left",
-    "movement": "shake",
-    "effect": "blur-in",
-    "text": "Kai, kamu dengar itu? Seperti suara air mengalir di dekat sini!",
-    "transition": "slide"
+    "speakerId": "protag",
+    "text": "Mmm.. pagi yang indah, akhirnya hari pertama aku di SMA 67 Nusa.",
+  "stage": {     
+  "characters": [
+        {
+          "id": "protag",
+          "name": "???",
+          "image": "mimi_happy.jpg",
+          "position": "center",
+          "movement": "fade",
+          
+          "isSpeaking": false
+        }
+      ]}
+      },
+  {
+    "stage": {
+      "characters": [
+        {
+          "id": "protag",
+          "position": "left",
+          "movement": "slide-left",
+          "isSpeaking": true
+        }
+      ]
+    }
   },
   {
-    "type": "choice",
-    "choices": [
-      { "text": "Pergi lihat sumber suara", "result": "neutral" },
-      { "text": "Abaikan dan lanjut jalan", "result": "neutral" }
-    ]
-  },
-  {
+    "id": "narration-look-clock",
     "type": "narration",
-    "text": "Mereka pun menemukan sungai kecil dengan air jernih mengalir perlahan. Burung-burung berkicau di atasnya.",
-    "transition": "zoom"
+    "text": "Orang ini melirik jam bundar yang berdetak agresif.",
+    "stage": {
+      "objects": [
+        {
+          "id": "alarm",
+          "name": "Jam Weker",
+          "image": "Adobe Express - file.png",
+          "position": "right",
+          "movement": "bounce",
+          "scale": 0.6,
+          "offsetY": 40,
+          "layer": 12
+        }
+      ]
+    }
   },
   {
-    "type": "question",
-    "hint": "Apa warna langit di pagi hari?",
-    "correctAnswer": "biru",
-    "consequenceIfCorrect": "neutral",
-    "consequenceIfWrong": "lose",
-    "transition": "black"
-  },
-  {
+    "id": "dialogue-protag-02",
     "type": "dialogue",
-    "character": "Kai",
-    "image": "kai_normal.jpg",
-    "position": "right",
-    "movement": "bounce",
-    "effect": "glow",
-    "text": "Haha, benar! Langitnya biru cerah sekali hari ini.",
-    "transition": "fade"
+    "speakerId": "protag",
+    "text": "WOY UDAH JAM 7.67 am!!",
+    "stage": {
+      "characters": [
+        {
+          "id": "protag",
+          "movement": "shake",
+          "isSpeaking": true
+        }
+      ],
+      "transition": "flash"
+    }
   },
   {
-    "type": "question",
-    "hint": "Siapa nama teman Mimi?",
-    "correctAnswer": "Kai",
-    "consequenceIfCorrect": "neutral",
-    "consequenceIfWrong": "lose",
-    "transition": "fade"
-  },
-  {
+    "id": "dialogue-protag-03",
     "type": "dialogue",
-    "character": "Mimi",
-    "image": "mimi_happy.jpg",
-    "position": "center",
-    "movement": "zoom-in",
-    "text": "Betul! Kamu hebat, Kai~",
-    "transition": "white"
+    "speakerId": "protag",
+    "text": "Mati gua telat banget ini.",
+    "stage": {
+      "characters": [
+        {
+          "id": "protag",
+          "position": "center",
+          "movement": "bounce",
+          "isSpeaking": true
+        }
+      ]
+    }
   },
   {
+    "id": "choice-morning-branch",
     "type": "choice",
-    "choices": [
-      { "text": "Tersenyum balik pada Mimi", "result": "win" },
-      { "text": "Diam saja", "result": "neutral" }
+    "_comment": [
+      "Pilihan A menunjukkan contoh jumpTo ke jalur utama.",
+      "Pilihan B loncat ke jalur bercabang sebelum kembali ke cerita."
     ],
-    "transition": "slide"
+    "choices": [
+      {
+        "text": "Siap-siap ke sekolah",
+        "jumpTo": "narration-prepare",
+        "result": "neutral"
+      },
+      {
+        "text": "Lanjut tidur (lagian udah telat)",
+        "jumpTo": "branch-sleep",
+        "result": "neutral"
+      }
+    ]
   },
   {
-    "type": "dialogue",
-    "character": "Kai",
-    "image": "kai_normal.jpg",
-    "position": "right",
-    "movement": "slide-left",
-    "text": "Haha, aku senang bisa bersamamu hari ini, Mimi.",
-    "transition": "fade"
-  },
-  {
+    "id": "branch-sleep",
     "type": "narration",
-    "text": "Langit mulai memerah, menandakan hari akan berakhir. Mereka menatap langit sore dengan senyum puas.",
-    "transition": "fade"
+    "text": "Kamu menenggelamkan diri di selimut. Kamu telah melewatkan takdir MyKisah—setidaknya di timeline ini.",
+    "stage": {
+      "background": {
+        "image": "5ed1185ee989bf2ac31e6e4a330d2966.jpg",
+        "overlay": 60
+      },
+      "characters": [
+        {
+          "id": "protag",
+          "position": "center",
+          "movement": "fade",
+          "isSpeaking": false
+        }
+      ]
+    },
+    "transition": {
+      "type": "fade",
+      "duration": 700
+    }
   },
   {
-    "type": "dialogue",
-    "character": "Mimi",
-    "image": "mimi_happy.jpg",
-    "position": "center",
-    "movement": "fade-in",
-    "text": "Yay, kita sampai! Hari ini benar-benar indah!",
-    "transition": "zoom"
-  },
-  {
+    "id": "branch-sleep-return",
     "type": "narration",
-    "text": "🌸 Ending: Hari yang Tenang 🌸",
-    "transition": "fade"
+    "text": "Tetapi mimpi buruk soal mykisah bikin kamu melompat bangun lagi.",
+    "stage": {
+      "characters": [
+        {
+          "id": "protag",
+          "movement": "bounce",
+          "isSpeaking": false
+        }
+      ],
+      "objects": [
+        {
+          "id": "alarm",
+          "movement": "shake",
+          "scale": 0.5
+        }
+      ]
+    }
+  },
+  {
+    "id": "narration-prepare",
+    "type": "narration",
+    "text": "Kamu bergegas bersiap-siap secepat kompilasi speedrun.",
+    "stage": {
+      "characters": [
+        {
+          "id": "protag",
+          "position": "center",
+          "movement": "fade",
+          "isSpeaking": false
+        }
+      ],
+      "objects": [
+        {
+          "id": "alarm",
+          "visible": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "narration-mirror",
+    "type": "narration",
+    "text": "Kamu melihat kaca. Rambut rapi, seragam kinclong, hati deg-degan.",
+    "stage": {
+      "objects": [
+        {
+          "id": "mirror-glow",
+          "name": "Cermin",
+          "image": "0f29cba7c68dca47eedfbd4121b36aee.jpg",
+          "position": "center",
+          "movement": "fade",
+          "scale": 0.55,
+          "layer": 9
+        }
+      ]
+    }
+  },
+  {
+    "id": "dialogue-protag-04",
+    "type": "dialogue",
+    "speakerId": "protag",
+    "text": "Jirlah akhirnya gw esema, esempe mana paham ygy.",
+    "stage": {
+      "characters": [
+        {
+          "id": "protag",
+          "position": "right",
+          "movement": "slide-right",
+          "isSpeaking": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "dialogue-protag-05",
+    "type": "dialogue",
+    "speakerId": "protag",
+    "text": "Gak lucu sih kalo misal gw telat hari pertama SMA, kayaknya gw skip sarapan aja deh.",
+    "stage": {
+      "characters": [
+        {
+          "id": "protag",
+          "position": "center",
+          "movement": "fade",
+          "isSpeaking": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "narration-door",
+    "type": "narration",
+    "text": "Kamu membuka pintu dengan gaya superhero.",
+    "stage": {
+      "background": {
+        "image": "0a56ddd73ece0f4d626d4be7900e929f.jpg",
+        "overlay": 20,
+        "transition": {
+          "type": "slide",
+          "duration": 700
+        }
+      },
+      "characters": [
+        {
+          "id": "protag",
+          "isSpeaking": false
+        }
+      ],
+      "objects": []
+    }
+  },
+  {
+    "id": "narration-door-impact",
+    "type": "narration",
+    "text": "Brukk!",
+    "transition": {
+      "type": "zoom",
+      "duration": 500
+    }
+  },
+  {
+    "id": "narration-bump",
+    "type": "narration",
+    "text": "Kamu menabrak seseorang yang kebingungan di depan rumah.",
+    "stage": {
+      "characters": [
+        {
+          "id": "protag",
+          "position": "left",
+          "isSpeaking": false
+        },
+        {
+          "id": "kai",
+          "name": "Gadis Misterius",
+          "image": "kai_normal.jpg",
+          "position": "right",
+          "movement": "slide-right",
+          "isSpeaking": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "dialogue-protag-06",
+    "type": "dialogue",
+    "speakerId": "protag",
+    "text": "WOI GOB#OK NGAPAIN DEPAN PINTU ORANG!",
+    "transition": "flash",
+    "stage": {
+      "characters": [
+        {
+          "id": "protag",
+          "movement": "shake",
+          "isSpeaking": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "dialogue-kai-01",
+    "type": "dialogue",
+    "speakerId": "kai",
+    "text": "anu-... g-gomen…. watashi wa tidak melihat pintu...",
+    "stage": {
+      "characters": [
+        {
+          "id": "kai",
+          "movement": "bounce",
+          "isSpeaking": true
+        }
+      ],
+      "objects": [
+        {
+          "id": "map-seni",
+          "name": "Map Seni",
+          "image": "Adobe Express - file.png",
+          "position": "center",
+          "scale": 0.4,
+          "layer": 6
+        }
+      ]
+    }
+  },
+  {
+    "id": "dialogue-protag-07",
+    "type": "dialogue",
+    "speakerId": "protag",
+    "text": "(Anying cewek ternyata...)",
+    "stage": {
+      "characters": [
+        {
+          "id": "protag",
+          "movement": "fade",
+          "isSpeaking": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "dialogue-protag-08",
+    "type": "dialogue",
+    "speakerId": "protag",
+    "text": "e-eh anu maaf watashi sudah m-marah… gomennasai..",
+    "stage": {
+      "characters": [
+        {
+          "id": "protag",
+          "movement": "bounce",
+          "isSpeaking": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "dialogue-kai-02",
+    "type": "dialogue",
+    "speakerId": "kai",
+    "text": "K-Kalau begitu maafin watahis ya.. kalau kamu satu sekolah sama aku... jadi pacar aku?",
+    "stage": {
+      "characters": [
+        {
+          "id": "kai",
+          "movement": "slide-left",
+          "isSpeaking": true,
+          "position": "center"
+        },
+        {
+          "id": "protag",
+          "position": "left",
+          "isSpeaking": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "scene-school",
+    "type": "narration",
+    "text": "(Sekolah)",
+    "stage": {
+      "background": {
+        "image": "20250929204622.png.url",
+        "overlay": 35,
+        "transition": {
+          "type": "fade",
+          "duration": 800
+        }
+      },
+      "characters": [
+        {
+          "id": "protag",
+          "position": "center",
+          "isSpeaking": false
+        },
+        {
+          "id": "kai",
+          "visible": false
+        }
+      ],
+      "objects": []
+    }
+  },
+  {
+    "id": "narration-locker",
+    "type": "narration",
+    "text": "Brakk!",
+    "stage": {
+      "objects": [
+        {
+          "id": "locker",
+          "name": "Loker",
+          "image": "microsoft-excel-logo-png-8.png",
+          "assetType": "sprites",
+          "position": "right",
+          "movement": "shake",
+          "scale": 0.3,
+          "layer": 4
+        }
+      ]
+    }
+  },
+  {
+    "id": "narration-corridor",
+    "type": "narration",
+    "text": "Rucky sudah membanting novel di depan Excel.",
+    "stage": {
+      "characters": [
+        {
+          "id": "rucky",
+          "name": "Rucky",
+          "image": "mimi_happy.jpg",
+          "position": "left",
+          "movement": "slide-left",
+          "scale": 0.95
+        },
+        {
+          "id": "excel",
+          "name": "Excel",
+          "image": "microsoft-excel-logo-png-8.png",
+          "position": "right",
+          "movement": "slide-right",
+          "scale": 0.9
+        },
+        {
+          "id": "protag",
+          "position": "center",
+          "isSpeaking": false
+        }
+      ],
+      "objects": [
+        {
+          "id": "novel",
+          "name": "Novel MyKisah",
+          "image": "0f29cba7c68dca47eedfbd4121b36aee.jpg",
+          "position": "center",
+          "movement": "bounce",
+          "scale": 0.4,
+          "layer": 7
+        }
+      ]
+    }
+  },
+  {
+    "id": "dialogue-rucky-01",
+    "type": "dialogue",
+    "speakerId": "rucky",
+    "text": "Anying comic apaan coba ini udah klise gak masuk akal, mana ada orang nabrak depan pintu persis tolol!",
+    "stage": {
+      "characters": [
+        {
+          "id": "rucky",
+          "movement": "shake",
+          "isSpeaking": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "dialogue-rucky-02",
+    "type": "dialogue",
+    "speakerId": "rucky",
+    "text": "Woi Excel ngapain lu beli komik sampah kayak gini?",
+    "stage": {
+      "characters": [
+        {
+          "id": "rucky",
+          "movement": "bounce",
+          "isSpeaking": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "dialogue-excel-01",
+    "type": "dialogue",
+    "speakerId": "excel",
+    "text": "Gw beli soalnya judulnya menarik.",
+    "stage": {
+      "characters": [
+        {
+          "id": "excel",
+          "movement": "fade",
+          "isSpeaking": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "dialogue-rucky-03",
+    "type": "dialogue",
+    "speakerId": "rucky",
+    "text": "Memangnya apa judulnya?",
+    "stage": {
+      "characters": [
+        {
+          "id": "rucky",
+          "isSpeaking": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "dialogue-excel-02",
+    "type": "dialogue",
+    "speakerId": "excel",
+    "text": "Baca sendiri lah bukunya di elu.",
+    "stage": {
+      "characters": [
+        {
+          "id": "excel",
+          "movement": "slide-right",
+          "isSpeaking": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "dialogue-rucky-04",
+    "type": "dialogue",
+    "speakerId": "rucky",
+    "text": "oiya yak bener juga... coba mana “Aku menabrak istri 10’9 Muscle mommy goth girl ku saat aku pertama kali pergi ke SMA” Written by Wuxii”.",
+    "stage": {
+      "characters": [
+        {
+          "id": "rucky",
+          "movement": "bounce",
+          "isSpeaking": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "dialogue-rucky-05",
+    "type": "dialogue",
+    "speakerId": "rucky",
+    "text": "Sakit anjing authornya, buang aja ini buku Excel!",
+    "stage": {
+      "characters": [
+        {
+          "id": "rucky",
+          "movement": "shake",
+          "isSpeaking": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "dialogue-excel-03",
+    "type": "dialogue",
+    "speakerId": "excel",
+    "text": "Jangan anjay, gw mau belajar dari buku ini biar bisa ketemu goth girl muscle mommy pas nge gym.",
+    "stage": {
+      "characters": [
+        {
+          "id": "excel",
+          "movement": "bounce",
+          "isSpeaking": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "dialogue-rucky-06",
+    "type": "dialogue",
+    "speakerId": "rucky",
+    "text": "Be honest aja, tuh tulang tangan kempes gitu.",
+    "stage": {
+      "characters": [
+        {
+          "id": "rucky",
+          "movement": "fade",
+          "isSpeaking": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "dialogue-excel-04",
+    "type": "dialogue",
+    "speakerId": "excel",
+    "text": "Halah nyocot, nanti juga pas ketemu your kisah pasti gini juga, Rucky.",
+    "stage": {
+      "characters": [
+        {
+          "id": "excel",
+          "movement": "bounce",
+          "isSpeaking": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "dialogue-rucky-07",
+    "type": "dialogue",
+    "speakerId": "rucky",
+    "text": "Gw mah kaga suka gothic, gw mau yang silly kitten girl with -1’0 feet!",
+    "stage": {
+      "characters": [
+        {
+          "id": "rucky",
+          "movement": "slide-left",
+          "isSpeaking": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "dialogue-excel-05",
+    "type": "dialogue",
+    "speakerId": "excel",
+    "text": "Keliatan discord modnya.",
+    "stage": {
+      "characters": [
+        {
+          "id": "excel",
+          "movement": "fade",
+          "isSpeaking": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "dialogue-rucky-08",
+    "type": "dialogue",
+    "speakerId": "rucky",
+    "text": "Nyocot ah.",
+    "stage": {
+      "characters": [
+        {
+          "id": "rucky",
+          "movement": "bounce",
+          "isSpeaking": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "narration-bell",
+    "type": "narration",
+    "text": "Bel sekolah berbunyi, sekolah akan segera dimulai.",
+    "stage": {
+      "objects": [
+        {
+          "id": "novel",
+          "visible": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "dialogue-rucky-09",
+    "type": "dialogue",
+    "speakerId": "rucky",
+    "text": "Udahlah gw mau balik dulu ke kelas. Lu, pulsek, mau ke gramed gak? ganti itu buku sampah sumpah.",
+    "stage": {
+      "characters": [
+        {
+          "id": "rucky",
+          "movement": "bounce",
+          "isSpeaking": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "dialogue-excel-06",
+    "type": "dialogue",
+    "speakerId": "excel",
+    "text": "Hayuk aja, cuman gw mau ke ruang seni dulu sama my kisah.",
+    "stage": {
+      "characters": [
+        {
+          "id": "excel",
+          "movement": "fade",
+          "isSpeaking": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "dialogue-rucky-10",
+    "type": "dialogue",
+    "speakerId": "rucky",
+    "text": "Hah? sama siapa?",
+    "stage": {
+      "characters": [
+        {
+          "id": "rucky",
+          "isSpeaking": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "dialogue-excel-07",
+    "type": "dialogue",
+    "speakerId": "excel",
+    "text": "Himeko.",
+    "stage": {
+      "characters": [
+        {
+          "id": "excel",
+          "movement": "bounce",
+          "isSpeaking": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "dialogue-rucky-11",
+    "type": "dialogue",
+    "speakerId": "rucky",
+    "text": "Gila ni orang skizo.",
+    "stage": {
+      "characters": [
+        {
+          "id": "rucky",
+          "movement": "shake",
+          "isSpeaking": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "narration-ending",
+    "type": "narration",
+    "text": "Hari pertama resmi dimulai. Kamu siap mencari kelanjutannya.",
+    "transition": {
+      "type": "fade",
+      "duration": 800
+    },
+    "stage": {
+      "characters": [
+        {
+          "id": "protag",
+          "position": "center",
+          "movement": "fade",
+          "isSpeaking": false
+        },
+        {
+          "id": "rucky",
+          "visible": false
+        },
+        {
+          "id": "excel",
+          "visible": false
+        },
+        {
+          "id": "kai",
+          "visible": false
+        }
+      ],
+      "objects": []
+    }
   }
 ]

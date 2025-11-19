@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import useVNEngine from '../../core/engine';
 
@@ -16,22 +16,27 @@ import useSceneTransition from '../../core/useSceneTransition';
 function Chapter1Page() {
   const { currentLine, currentIndex, isEndOfChapter, nextLine, jumpToLine } = useVNEngine('chapter1');
   
-  const [currentBg, setCurrentBg] = useState(null);
   const [showChoice, setShowChoice] = useState(false);
   const [currentChoices, setCurrentChoices] = useState([]);
   const [showAnswer, setShowAnswer] = useState(false);
   const [answerData, setAnswerData] = useState({});
   const [isLose, setIsLose] = useState(false);
 
-  const { transitionActive, transitionType } = useSceneTransition(currentLine);
+  const { transitionActive, transitionType, transitionDuration } = useSceneTransition(currentLine);
 
+  const activeStage = currentLine?.stage;
+  const activeSpeakerId = currentLine?.speakerId;
+  const displayName = useMemo(() => {
+    if (currentLine?.speakerName) return currentLine.speakerName;
+    if (!activeStage?.characters?.length || !activeSpeakerId) return currentLine?.character || null;
+    const speakingChar = activeStage.characters.find(char => char.id === activeSpeakerId);
+    return speakingChar?.name || speakingChar?.id || null;
+  }, [activeSpeakerId, activeStage?.characters, currentLine?.character, currentLine?.speakerName]);
 
   // Reset UI tiap line
   useEffect(() => {
     setShowChoice(false);
     setShowAnswer(false);
-
-    if (currentLine?.bg) setCurrentBg(currentLine.bg);
 
     if (currentLine?.type === 'choice') {
       setCurrentChoices(currentLine.choices || []);
@@ -90,22 +95,51 @@ function Chapter1Page() {
       className="relative w-full h-screen overflow-hidden cursor-pointer"
       onClick={handleScreenClick}
     >
-      {/* ✅ Fade overlay auto ketika scene berubah */}
-      <TransitionOverlay active={transitionActive} type={transitionType} />
+      {/*transition */}
+      {transitionType && (
+        <TransitionOverlay active={transitionActive} type={transitionType} duration={transitionDuration} />
+      )}
+
 
 
       {/* Background */}
-      <Background image={currentBg} overlay={20} />
+      <Background image={activeStage?.background?.image} overlay={activeStage?.background?.overlay ?? 20} />
 
-      {/* Character */}
-      {currentLine?.character && currentLine?.image && (
+      {/* Stage objects */}
+      {activeStage?.objects?.map((obj) => (
         <CharacterSprite
-          name={currentLine.character}
-          image={currentLine.image}
-          position={currentLine.position || 'center'}
-          movement={currentLine.movement}
+          key={`object-${obj.id}`}
+          name={obj.name || obj.id}
+          image={obj.image}
+          position={obj.position || 'center'}
+          movement={obj.movement}
+          variant="object"
+          layer={obj.layer ?? 10}
+          scale={obj.scale ?? 0.6}
+          offsetY={obj.offsetY ?? 0}
+          assetType={obj.assetType || 'sprites'}
         />
-      )}
+      ))}
+
+      {/* Characters */}
+      {activeStage?.characters?.map((character) => (
+        <CharacterSprite
+          key={`char-${character.id}`}
+          name={character.name || character.id}
+          image={character.image}
+          position={character.position || 'center'}
+          movement={character.movement}
+          layer={character.layer ?? 20}
+          scale={character.scale ?? 1}
+          offsetY={character.offsetY ?? 0}
+          isFocused={
+            activeSpeakerId
+              ? character.id === activeSpeakerId
+              : character.isSpeaking || false
+          }
+          assetType={character.assetType || 'sprites'}
+        />
+      ))}
 
       <AnimatePresence mode="wait">
         {/* Dialogue */}
@@ -118,7 +152,7 @@ function Chapter1Page() {
             transition={{ duration: 0.35 }}
             className="absolute inset-0 z-20 flex flex-col justify-end"
           >
-            <DialogueBox name={currentLine.character} text={currentLine.text} />
+            <DialogueBox name={displayName} text={currentLine.text} />
           </motion.div>
         )}
 

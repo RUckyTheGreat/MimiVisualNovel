@@ -2,19 +2,33 @@ import { useState, useEffect } from 'react';
 
 export default function useSceneTransition(currentLine) {
   const [transitionActive, setTransitionActive] = useState(false);
-  const [transitionType, setTransitionType] = useState('fade');
+  const [transitionType, setTransitionType] = useState(null);
+  const [transitionDuration, setTransitionDuration] = useState(600);
 
   useEffect(() => {
-    if (!currentLine) return;
+    const transition = currentLine?.transition;
+    const transitionKey = currentLine?.transitionKey;
 
-    const type = currentLine.transition || 'fade';
-    setTransitionType(type);
+    if (!transition || !transitionKey) {
+      setTransitionType(null);
+      setTransitionActive(false);
+      return;
+    }
 
+    const parsed = typeof transition === 'string'
+      ? { type: transition, duration: 600 }
+      : { type: transition.type || 'fade', duration: transition.duration || 600 };
+
+    setTransitionType(parsed.type);
+    setTransitionDuration(parsed.duration);
     setTransitionActive(true);
-    const timer = setTimeout(() => setTransitionActive(false), 600);
+
+    const timer = setTimeout(() => {
+      setTransitionActive(false);
+    }, parsed.duration);
 
     return () => clearTimeout(timer);
-  }, [currentLine]);
+  }, [currentLine?.transitionKey, currentLine?.transition]);
 
-  return { transitionActive, transitionType };
+  return { transitionActive, transitionType, transitionDuration };
 }
